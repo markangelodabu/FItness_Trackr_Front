@@ -5,8 +5,12 @@ const Routines = () => {
   const [routines, setRoutines] = useState([]);
 
   const handleRoutines = async () => {
-    const fetchedRoutines = await fetchRoutines();
-    setRoutines(fetchedRoutines);
+    try {
+      const fetchedRoutines = await fetchRoutines();
+      setRoutines(fetchedRoutines);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -19,8 +23,9 @@ const Routines = () => {
       {routines.map((routine) => {
         return (
           <>
-            <div>{routine.name}</div>
-            <div>{routine.goal}</div>
+            <div>Name : {routine.name}</div>
+            <div>Goal: {routine.goal}</div>
+            <div>Creator: {routine.creatorName} </div>
           </>
         );
       })}
