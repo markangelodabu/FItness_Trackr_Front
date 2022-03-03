@@ -97,3 +97,4 @@ export const getUser = async (token) => {
     console.error(error);
   }
 };
+// fixing /api/index.js
