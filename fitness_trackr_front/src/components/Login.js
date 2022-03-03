@@ -18,7 +18,7 @@ const Login = ({ token, setToken }) => {
     console.log(token);
     setToken(newToken);
     setMessage(message);
-    navigate("/")
+    navigate("/");
   };
 
   return (
@@ -43,7 +43,7 @@ const Login = ({ token, setToken }) => {
       <div>
         <Link to="/register">Don't have an account? Register Here!</Link>
         {message}
-        </div>
+      </div>
     </form>
   );
 };
