@@ -1,3 +1,4 @@
+import "./Routines.css";
 import React, { useEffect, useState } from "react";
 import { fetchRoutines } from "../api";
 

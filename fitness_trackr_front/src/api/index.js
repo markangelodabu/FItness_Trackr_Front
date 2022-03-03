@@ -22,7 +22,7 @@ export const fetchActivities = async () => {
 
 export const register = async (username, password) => {
   try {
-    const response = await fetch(`${BASE_URL}/users/register`, {
+    const response = await axios.get(`${BASE_URL}/users/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -54,7 +54,7 @@ export const register = async (username, password) => {
 
 export const login = async (username, password) => {
   try {
-    const response = await fetch(`${BASE_URL}/users/login`, {
+    const response = await axios.get(`${BASE_URL}/users/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -85,7 +85,7 @@ export const login = async (username, password) => {
 };
 export const getUser = async (token) => {
   try {
-    const response = await fetch(`${BASE_URL}/users/me`, {
+    const response = await axios.get(`${BASE_URL}/users/me`, {
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`,
