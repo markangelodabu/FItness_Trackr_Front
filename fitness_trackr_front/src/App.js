@@ -23,7 +23,7 @@ function App() {
     handleUser();
   }, [token]);
 
-    useEffect(() => {
+  useEffect(() => {
     if (localStorage.getItem("token")) {
       setToken(localStorage.getItem("token"));
     }

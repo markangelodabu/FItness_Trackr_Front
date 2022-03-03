@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { register } from "../api";
 
-
 const Register = ({ token, setToken }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -42,7 +41,7 @@ const Register = ({ token, setToken }) => {
       <div>
         <Link to="/login">Already have an account? Login Here!</Link>
         {message}
-        </div>
+      </div>
     </form>
   );
 };
