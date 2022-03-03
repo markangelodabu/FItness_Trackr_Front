@@ -166,7 +166,7 @@ export const deleteRoutine = async () => {
   }
 }
 
-export const addRoutineActivity = async (activityId, count, duration) => {
+export const addActivityToRoutine = async (activityId, count, duration) => {
   try {
     const response = await axios.post(`${BASE_URL}/routines/:routineId/activities`, {
       activityId,
@@ -176,7 +176,7 @@ export const addRoutineActivity = async (activityId, count, duration) => {
     const {data: routine_activity} = await response.json();
     return routine_activity;
   } catch (error) {
-    console.error("Error at addRoutineActivity", error);
+    console.error("Error at addActivityToRoutine", error);
   }
 }
 

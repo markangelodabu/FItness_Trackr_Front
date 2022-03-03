@@ -1,8 +1,11 @@
 import "./Routines.css";
 import React, { useEffect, useState } from "react";
-import { fetchRoutines } from "../api";
+import { fetchRoutines, publicRoutinesByUser, publicRoutinesByActivity, addRoutine, updateRoutine, deleteRoutine, addActivityToRoutine, updateRoutineActivity, deleteRoutineActivity } from "../api";
+import { useNavigate } from "react-router-dom";
 
-const Routines = () => {
+const Routines = ({token}) => {
+  const navigate = useNavigate();
+
   const [routines, setRoutines] = useState([]);
 
   const handleRoutines = async () => {
@@ -14,9 +17,28 @@ const Routines = () => {
     }
   };
 
+  const handleDelete = async (id) => {
+    try {
+      await deleteRoutine(token, id);
+      const newRoutines = routines.filter((element) => {
+        return element.id !== id
+      })
+      setRoutines(newRoutines);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   useEffect(() => {
+    fetchRoutines(token)
+    .then((routines) => {
+      setRoutines(routines)
+    })
+    .catch((error) => {
+      console.error(error)
+    })
     handleRoutines();
-  }, []);
+  }, [token]);
 
   return (
     <div>
