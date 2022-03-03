@@ -1,6 +1,6 @@
 import "./Activities.css";
 import React, { useEffect, useState } from "react";
-import { fetchActivities } from "../api";
+import { fetchActivities , addActivity, updateActivity, publicRoutinesByActivity } from "../api";
 
 const Activities = () => {
     const [activities, setActivities] = useState([]);
