@@ -2,20 +2,9 @@ import "./Routines.css";
 import React, { useEffect, useState } from "react";
 import {
   fetchRoutines,
-  publicRoutinesByUser,
-  publicRoutinesByActivity,
-  addRoutine,
-  updateRoutine,
-  deleteRoutine,
-  addActivityToRoutine,
-  updateRoutineActivity,
-  deleteRoutineActivity,
 } from "../api";
-import AddRoutine from "./AddRoutine";
-import { useNavigate } from "react-router-dom";
 
-const Routines = ({ token }) => {
-  const navigate = useNavigate();
+const Routines = () => {
 
   const [routines, setRoutines] = useState([]);
 
@@ -28,39 +17,32 @@ const Routines = ({ token }) => {
     }
   };
 
-  const handleDelete = async (id) => {
-    try {
-      await deleteRoutine(token, id);
-      const newRoutines = routines.filter((element) => {
-        return element.id !== id;
-      });
-      setRoutines(newRoutines);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const handleDelete = async (id) => {
+  //   try {
+  //     await deleteRoutine(token, id);
+  //     const newRoutines = routines.filter((element) => {
+  //       return element.id !== id;
+  //     });
+  //     setRoutines(newRoutines);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   useEffect(() => {
-    fetchRoutines(token)
-      .then((routines) => {
-        setRoutines(routines);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
     handleRoutines();
-  }, [token]);
+  }, []);
 
   return (
     <div>
-      <h2>Hello welcome to routines</h2>
+      <h2>Public Routines</h2>
       {routines.map((routine) => {
         return (
           <>
-          {token && <AddRoutine token = {token} routines = {routines} setRoutines = {setRoutines}/> }
             <div>Name : {routine.name}</div>
             <div>Goal: {routine.goal}</div>
             <div>Creator: {routine.creatorName} </div>
+            <hr/>
           </>
         );
       })}
