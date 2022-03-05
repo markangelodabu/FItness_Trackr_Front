@@ -30,7 +30,10 @@ function App() {
   return (
     <div className="App">
       <nav className="App-link">
-        {!token && <Link to="/">Home</Link>}
+        {<Link to="/">Home</Link>}
+        {<Link to="/routines">Routines</Link>}
+        {<Link to="/account/routines">My Routines</Link>}
+        {<Link to="/activities">Activities</Link>}
         {!token && <Link to="/login">Login</Link>}
         {!token && <Link to="/register">Register</Link>}
         {token && <h2>Welcome, {user.username}</h2>}
