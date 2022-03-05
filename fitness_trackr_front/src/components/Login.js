@@ -12,18 +12,26 @@ const Login = ({ token, setToken }) => {
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
-    const [newToken, message] = await login(username, password);
-    localStorage.setItem("token", token);
-    console.log(token);
-    setToken(newToken);
-    setMessage(message);
-    navigate("/");
+    try {    
+      event.preventDefault();
+      const [newToken, message] = await login(username, password);
+      localStorage.setItem("token", token);
+      setToken(newToken);
+      setMessage(message);
+      navigate("/");
+    }catch (error) {
+      console.log(error.response.data);
+      setMessage("")
+      setPassword("")
+      console.dir("error at submit login", error);
+    }
+
   };
 
   return (
     <form className="login-form" onSubmit={handleSubmit}>
       <h2>Login</h2>
+      {message && <h3>{message}</h3>}
       <input
         value={username}
         placeholder="username"
@@ -42,7 +50,6 @@ const Login = ({ token, setToken }) => {
       <button>Submit</button>
       <div>
         <Link to="/register">Don't have an account? Register Here!</Link>
-        {message}
       </div>
     </form>
   );

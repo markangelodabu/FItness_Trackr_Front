@@ -8,8 +8,7 @@ function App() {
   const [token, setToken] = useState("");
   const [user, setUser] = useState({});
 
-  const handleUser = async () => {
-    console.log(token);
+  const handleUser = async (token) => {
     if (token) {
       const userObject = await getUser(token);
       setUser(userObject);
@@ -17,8 +16,7 @@ function App() {
       setUser({});
     }
   };
-  console.log("user", user);
-
+  
   useEffect(() => {
     handleUser();
   }, [token]);
@@ -32,20 +30,13 @@ function App() {
   return (
     <div className="App">
       <nav className="App-link">
-        {token && <h2>Welcome, {user.username}</h2>}
-        {<Link to="/">Home</Link>}
+        {!token && <Link to="/">Home</Link>}
         {!token && <Link to="/login">Login</Link>}
         {!token && <Link to="/register">Register</Link>}
-        {token && (
-          <button
-            onClick={() => {
-              setToken("");
-              localStorage.removeItem("token");
-            }}
-          >
-            Logout
-          </button>
-        )}
+        {token && <h2>Welcome, {user.username}</h2>}
+        {token && <button onClick={()=>{
+          setToken("");
+        }}>Logout</button>}
       </nav>
       <Routes>
         <Route path="/" element={<Home />} />
