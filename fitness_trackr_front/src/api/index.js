@@ -8,21 +8,13 @@ export const register = async (username, password) => {
       username,
       password,
     });
-    const result = await response.json();
-    console.log(result);
-    if (result.success) {
-      const {
-        data: { token, message },
-      } = result;
+    console.log(response);
+    const {token, message} = response;
       return [token, message];
-    } else {
-      const {
-        error: { token, message },
-      } = result;
-      return [token, message];
-    }
+    
   } catch (error) {
-    console.error(error);
+    console.dir(error);
+    throw error;
   }
 };
 
@@ -32,21 +24,12 @@ export const login = async (username, password) => {
       username,
       password,
     });
-    const result = await response.json();
-    console.log(result);
-    if (result.success) {
-      const {
-        data: { token, message },
-      } = result;
+    console.log(response);
+    const {token, message} = response;
       return [token, message];
-    } else {
-      const {
-        error: { token, message },
-      } = result;
-      return [token, message];
-    }
   } catch (error) {
-    console.error(error);
+    console.dir(error);
+    throw error;
   }
 };
 
@@ -55,10 +38,11 @@ export const getUser = async (token) => {
     const response = await axios.get(`${BASE_URL}/users/me`, {
       token,
     });
-    const { data: user } = await response.json();
-    return user;
+    console.log(response);
+    const result = response;
+    return result;
   } catch (error) {
-    console.error(error);
+    console.error('error at getUser', error);
   }
 };
 

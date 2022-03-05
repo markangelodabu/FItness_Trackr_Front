@@ -12,16 +12,26 @@ const Register = ({ token, setToken }) => {
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
-    const [newToken, message] = await register(username, password);
-    console.log(token);
-    setToken(newToken);
-    setMessage(message);
-    navigate("/");
+    try{
+      event.preventDefault();
+      const [newToken, message] = await register(username, password);
+      console.log(token);
+      setToken(newToken);
+      setMessage(message);
+      navigate("/");
+    }catch (error){
+      console.log(error.response.data);
+      setMessage(error.response.data.message);
+      setUsername("");
+      setPassword("");
+      console.dir("error at submit register", error);
+    }
+
   };
   return (
     <form className="register-form" onSubmit={handleSubmit}>
       <h2>Register</h2>
+      {message && <h3>{message}</h3>}
       <input
         value={username}
         placeholder="username"
@@ -40,7 +50,6 @@ const Register = ({ token, setToken }) => {
       <button>Submit</button>
       <div>
         <Link to="/login">Already have an account? Login Here!</Link>
-        {message}
       </div>
     </form>
   );

@@ -19,6 +19,9 @@
 }
 
 .App-link {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  display: flex;
+  justify-content: space-around;
   color: #61dafb;
 }
 
