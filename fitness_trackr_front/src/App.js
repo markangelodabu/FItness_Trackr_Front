@@ -1,24 +1,57 @@
 import "./App.css";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Home, Register, Login, Routines, Activities } from "./components";
-import { Routes, Route, Link } from "react-router-dom";
-import { getUser } from "./api";
+import {
+  Home,
+  Register,
+  Login,
+  RoutineView,
+  Activities,
+  Header,
+} from "./components";
+import { Routes, Route } from "react-router-dom";
+import { fetchActivities, fetchRoutines } from "./api";
+const BASE_URL = "https://shrouded-forest-35352.herokuapp.com/api";
 
 function App() {
   const [token, setToken] = useState("");
   const [user, setUser] = useState({});
+  const [activities, setActivities] = useState([]);
+  const [routines, setRoutines] = useState([]);
 
-  const handleUser = async (token) => {
-    if (token) {
-      const userObject = await getUser(token);
+  const handleUser = async () => {
+    try {
+      const { data: userObject } = await axios.get(`${BASE_URL}/users/me`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setUser(userObject);
-    } else {
-      setUser({});
+    } catch (error) {
+      console.error(error);
     }
   };
-  
+  const handleRoutines = async () => {
+    const fetchedRoutines = await fetchRoutines();
+    setRoutines(fetchedRoutines);
+  };
+  const handleActivities = async () => {
+    const fetchedActivities = await fetchActivities();
+    setActivities(fetchedActivities);
+  };
+  const handleLogout = () => {
+    setUser({});
+    setToken("");
+    localStorage.removeItem("token");
+  };
   useEffect(() => {
-    handleUser();
+    handleRoutines();
+    handleActivities();
+  }, []);
+  useEffect(() => {
+    if (token) {
+      handleUser();
+    }
   }, [token]);
 
   useEffect(() => {
@@ -29,18 +62,7 @@ function App() {
 
   return (
     <div className="App">
-      <nav className="App-link">
-        {<Link to="/">Home</Link>}
-        {<Link to="/routines">Routines</Link>}
-        {<Link to="/account/routines">My Routines</Link>}
-        {<Link to="/activities">Activities</Link>}
-        {!token && <Link to="/login">Login</Link>}
-        {!token && <Link to="/register">Register</Link>}
-        {token && <h2>Welcome, {user.username}</h2>}
-        {token && <button onClick={()=>{
-          setToken("");
-        }}>Logout</button>}
-      </nav>
+      <Header user={user} token={token} handleLogout={handleLogout} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login setToken={setToken} />} />
@@ -48,8 +70,21 @@ function App() {
           path="/register"
           element={<Register token={token} setToken={setToken} />}
         />
-        <Route path="/routines" element={<Routines />} />
-        <Route path="/activities" element={<Activities />} />
+        <Route
+          path="/activities"
+          element={<Activities activities={activities} />}
+        />
+        <Route
+          path="/routines/:routineId"
+          element={
+            <RoutineView
+              routines={routines}
+              activities={activities}
+              token={token}
+              handleRoutines={handleRoutines}
+            />
+          }
+        />
       </Routes>
     </div>
   );
