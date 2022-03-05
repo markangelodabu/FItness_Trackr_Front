@@ -11,6 +11,7 @@ import {
   updateRoutineActivity,
   deleteRoutineActivity,
 } from "../api";
+import AddRoutine from "./AddRoutine";
 import { useNavigate } from "react-router-dom";
 
 const Routines = ({ token }) => {
@@ -56,6 +57,7 @@ const Routines = ({ token }) => {
       {routines.map((routine) => {
         return (
           <>
+          {token && <AddRoutine token = {token} routines = {routines} setRoutines = {setRoutines}/> }
             <div>Name : {routine.name}</div>
             <div>Goal: {routine.goal}</div>
             <div>Creator: {routine.creatorName} </div>

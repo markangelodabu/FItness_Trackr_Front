@@ -12,7 +12,7 @@ export const register = async (username, password) => {
     console.log(result);
     if (result.success) {
       const {
-        data: { token, message },
+        result: { token, message },
       } = result;
       return [token, message];
     } else {
@@ -36,7 +36,7 @@ export const login = async (username, password) => {
     console.log(result);
     if (result.success) {
       const {
-        data: { token, message },
+        result: { token, message },
       } = result;
       return [token, message];
     } else {
