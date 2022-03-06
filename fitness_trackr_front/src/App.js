@@ -1,6 +1,6 @@
 import "./App.css";
-import React, { useEffect, useState } from "react";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
 import {
   Home,
   Register,
@@ -19,7 +19,7 @@ function App() {
   const [activities, setActivities] = useState([]);
   const [routines, setRoutines] = useState([]);
 
-  const handleUser = async () => {
+  const handleUser = async (token) => {
     try {
       const { data: userObject } = await axios.get(`${BASE_URL}/users/me`, {
         headers: {
@@ -31,8 +31,6 @@ function App() {
       console.error(error);
     }
   };
-   }
-
   const handleRoutines = async () => {
     const fetchedRoutines = await fetchRoutines();
     setRoutines(fetchedRoutines);
@@ -50,7 +48,6 @@ function App() {
     handleRoutines();
     handleActivities();
   }, []);
-
   useEffect(() => {
     if (token) {
       handleUser();
@@ -71,11 +68,7 @@ function App() {
         <Route path="/login" element={<Login setToken={setToken} />} />
         <Route
           path="/register"
-          element={<Register token={token} setToken={setToken} />}
-        />
-        <Route path="/routines" element={<Routines token = {token} user={user} routines={routines} setRoutines={setRoutines}/>} />
-        <Route path="/activities" element={<Activities activities={activities} setActivities={setActivities}/>} />
-        <Route path="/account/routines" element={<MyRoutines token={token} routines={routines} setRoutines={setRoutines}/>} />
+          element={<Register token={token} setToken={setToken} />} />
         <Route
           path="/activities"
           element={<Activities activities={activities} />}

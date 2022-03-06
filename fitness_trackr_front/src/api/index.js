@@ -49,7 +49,7 @@ export const getUser = async (token) => {
 export const publicRoutinesByUser = async () => {
   try {
     const {data} = await axios.get(`${BASE_URL}/users/:username/routines`);
-    const routines = data
+    const routines = data;
     return routines;
   } catch (error) {
     console.error("Error at publicRoutineByUser", error);
@@ -116,7 +116,6 @@ export const fetchRoutines = async () => {
 
 export const addRoutine = async (routineToAdd, token) => {
   try {
-    //endpoint, body, config
     const {data} = await axios.post(`${BASE_URL}/routines`, routineToAdd, {
       headers: {
         Authorization:`Bearer ${token}`

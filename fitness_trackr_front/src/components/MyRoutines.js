@@ -1,5 +1,6 @@
+import React from "react";
 import { useState } from "react";
-import RoutineForm from "./RoutineForm";
+import { RoutineForm } from "./";
 import { addRoutine } from "../api";
 
 const MyRoutines = ({ token, setRoutines, routines}) => {
@@ -10,9 +11,9 @@ const MyRoutines = ({ token, setRoutines, routines}) => {
     };
     const [routine, setRoutine] = useState(blankRoutine);
 
-    const handleAdd = async (e) => {
+    const handleAdd = async (element) => {
         try {
-            e.preventDefault();
+            element.preventDefault();
             const newRoutine = await addRoutine(routine, token);
             setRoutines([...routines, newRoutine])
             setRoutine(blankRoutine);
