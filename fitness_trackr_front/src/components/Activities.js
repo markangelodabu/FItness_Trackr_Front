@@ -1,23 +1,17 @@
 import "./Activities.css";
-import React, { useEffect, useState } from "react";
-import {
-  fetchActivities,
-  addActivity,
-  updateActivity,
-  publicRoutinesByActivity,
-} from "../api";
 
-const Activities = () => {
-  const [activities, setActivities] = useState([]);
 
-  const handleActivities = async () => {
-    const fetchedActivities = await fetchActivities();
-    setActivities(fetchedActivities);
-  };
+const Activities = ({activities}) => {
+  // const [activities, setActivities] = useState([]);
 
-  useEffect(() => {
-    handleActivities();
-  }, []);
+  // const handleActivities = async () => {
+  //   const fetchedActivities = await fetchActivities();
+  //   setActivities(fetchedActivities);
+  // };
+
+  // useEffect(() => {
+  //   handleActivities();
+  // }, []);
 
   return (
     <div>
