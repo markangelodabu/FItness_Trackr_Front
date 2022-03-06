@@ -4,12 +4,12 @@ const BASE_URL = "https://shrouded-forest-35352.herokuapp.com/api";
 
 export const register = async (username, password) => {
   try {
-    const response = await axios.post(`${BASE_URL}/users/register`, {
+    const {data} = await axios.post(`${BASE_URL}/users/register`, {
       username,
       password,
     });
-    console.log(response);
-    const {token, message} = response;
+    console.log(data);
+    const {token, message} = data;
       return [token, message];
     
   } catch (error) {
@@ -20,12 +20,12 @@ export const register = async (username, password) => {
 
 export const login = async (username, password) => {
   try {
-    const response = await axios.post(`${BASE_URL}/users/login`, {
+    const {data} = await axios.post(`${BASE_URL}/users/login`, {
       username,
       password,
     });
-    console.log(response);
-    const {token, message} = response;
+    console.log(data);
+    const {token, message} = data;
       return [token, message];
   } catch (error) {
     console.dir(error);
@@ -114,12 +114,13 @@ export const fetchRoutines = async () => {
   }
 };
 
-export const addRoutine = async (name, goal, isPublic) => {
+export const addRoutine = async (routineToAdd, token) => {
   try {
-    const {data} = await axios.post(`${BASE_URL}/routines`, {
-      name,
-      goal,
-      isPublic,
+    //endpoint, body, config
+    const {data} = await axios.post(`${BASE_URL}/routines`, routineToAdd, {
+      headers: {
+        Authorization:`Bearer ${token}`
+      }
     });
     const routine =  data
     return routine;

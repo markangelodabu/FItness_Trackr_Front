@@ -1,12 +1,14 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
-import { Home, Register, Login, Routines, Activities } from "./components";
+import { Home, Register, Login, Routines, Activities, MyRoutines } from "./components";
 import { Routes, Route, Link } from "react-router-dom";
-import { getUser } from "./api";
+import { getUser, fetchRoutines, fetchActivities } from "./api";
 
 function App() {
   const [token, setToken] = useState("");
   const [user, setUser] = useState({});
+  const [routines, setRoutines] = useState([]);
+  const [activities, setActivities] = useState([]);
 
   const handleUser = async (token) => {
     if (token) {
@@ -16,6 +18,29 @@ function App() {
       setUser({});
     }
   };
+
+  const handleRoutines = async () => {
+    try {
+      const fetchedRoutines = await fetchRoutines();
+      setRoutines(fetchedRoutines);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleActivities = async () => {
+    try {
+      const fetchedActivities = await fetchActivities();
+      setActivities(fetchedActivities);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    handleRoutines();
+    handleActivities();
+  }, []);
   
   useEffect(() => {
     handleUser();
@@ -48,8 +73,9 @@ function App() {
           path="/register"
           element={<Register token={token} setToken={setToken} />}
         />
-        <Route path="/routines" element={<Routines />} />
-        <Route path="/activities" element={<Activities />} />
+        <Route path="/routines" element={<Routines token = {token} user={user} routines={routines} setRoutines={setRoutines}/>} />
+        <Route path="/activities" element={<Activities activities={activities} setActivities={setActivities}/>} />
+        <Route path="/account/routines" element={<MyRoutines token={token} routines={routines} setRoutines={setRoutines}/>} />
       </Routes>
     </div>
   );
