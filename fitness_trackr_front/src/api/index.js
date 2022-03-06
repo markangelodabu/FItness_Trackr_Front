@@ -197,5 +197,3 @@ export const deleteRoutineActivity = async () => {
     console.error("Error at deleteRoutineActivity", error);
   }
 };
-
-// fixing /api/index.js
