@@ -1,20 +1,24 @@
+import React from "react";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import AddActivityToRoutineForm from "./components";
+import { AddActivityToRoutineForm } from "./";
 
 const RoutineView = ({ routines, activities, token, handleRoutines }) => {
   const { routineId } = useParams();
   const [routine, setRoutine] = useState(null);
 
-  useEffect((routineId) => {
-    const routineToDisplay = routines.find((element) => {
-      return element.id === routineId * 1;
-    });
-    setRoutine(routineToDisplay);
-  }, [routines]);
+  useEffect(
+    (routineId) => {
+      const routineToDisplay = routines.find((element) => {
+        return element.id === routineId * 1;
+      });
+      setRoutine(routineToDisplay);
+    },
+    [routines]
+  );
 
   if (!routine) {
-    return <div>Loading...</div>;
+    return <div>Loading?</div>;
   }
 
   return (
