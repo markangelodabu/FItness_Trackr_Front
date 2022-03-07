@@ -11,8 +11,8 @@ const AddActivityToRoutineForm = ({
   const [count, setCount] = useState(0);
   const [duration, setDuration] = useState(0);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     try {
       await addActivityToRoutine(
         routineId,
@@ -22,8 +22,8 @@ const AddActivityToRoutineForm = ({
         token
       );
       await handleRoutines();
-    } catch (e) {
-      console.error(e);
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -33,8 +33,8 @@ const AddActivityToRoutineForm = ({
       <label>Activity</label>
       <select
         value={activityId}
-        onChange={(e) => {
-          setActivityId(e.target.value);
+        onChange={(event) => {
+          setActivityId(event.target.value);
         }}
       >
         {activities.map((activity) => {
@@ -48,13 +48,13 @@ const AddActivityToRoutineForm = ({
       <label>Count</label>
       <input
         value={count}
-        onChange={(e) => setCount(e.target.value)}
+        onChange={(event) => setCount(event.target.value)}
         type="number"
       />
       <label>Duration</label>
       <input
         value={duration}
-        onChange={(e) => setDuration(e.target.value)}
+        onChange={(event) => setDuration(event.target.value)}
         type="number"
       />
       <button type="submit">Submit</button>

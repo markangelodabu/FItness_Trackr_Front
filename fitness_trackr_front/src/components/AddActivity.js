@@ -22,7 +22,7 @@ const AddActivity = ({ token, setActivities, activities}) => {
     return (
         <>
             <h2>Add Activity</h2>
-            <ActivityForm handleSubmit={handleAdd} activity={activity} setRoutine={activity} />
+            {token && <ActivityForm handleSubmit={handleAdd} activity={activity} setActivity={setActivity} />}
         </>
     );
 };

@@ -1,15 +1,11 @@
 import "./Activities.css";
 import React from "react";
-import { useEffect, useState } from "react";
-import { fetchActivities } from "../api";
 
-
-const Activities = ({activities}) => {
-
+const Activities = ({ activities }) => {
   return (
     <div>
-      <h2>Hello welcome to activities</h2>
-      <hr/>
+      <h2>Activities</h2>
+      <hr />
       {activities.map((activity) => {
         return (
           <div key={activity.id}>
