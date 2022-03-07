@@ -23,7 +23,7 @@ const AddRoutine = ({ token, setRoutines, routines}) => {
     return (
         <>
             <h2>Add Routine</h2>
-            <RoutineForm handleSubmit={handleAdd} routine={routine} setRoutine={setRoutine} />
+            {token && <RoutineForm handleSubmit={handleAdd} routine={routine} setRoutine={setRoutine} />}
         </>
     );
 };

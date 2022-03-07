@@ -8,10 +8,10 @@ export const register = async (username, password) => {
       username,
       password,
     });
-    console.log(data);
+    console.log(data); 
     const {token, message} = data;
       return [token, message];
-    
+     
   } catch (error) {
     console.dir(error);
     throw error;

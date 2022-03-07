@@ -2,26 +2,18 @@ import "./Activities.css";
 
 
 const Activities = ({activities}) => {
-  // const [activities, setActivities] = useState([]);
-
-  // const handleActivities = async () => {
-  //   const fetchedActivities = await fetchActivities();
-  //   setActivities(fetchedActivities);
-  // };
-
-  // useEffect(() => {
-  //   handleActivities();
-  // }, []);
 
   return (
     <div>
       <h2>Hello welcome to activities</h2>
+      <hr/>
       {activities.map((activity) => {
         return (
-          <>
-            <div>{activity.name}</div>
-            <div>{activity.description}</div>
-          </>
+          <div key={activity.id}>
+            <div> Name: {activity.name}</div>
+            <div> Description: {activity.description}</div>
+            <br></br>
+          </div>
         );
       })}
     </div>

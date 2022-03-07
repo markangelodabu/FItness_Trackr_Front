@@ -1,6 +1,6 @@
 const RoutineForm = ({ routine, setRoutine, handleSubmit }) => {
     return (
-        <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
             <input
                 value={routine.name}
                 placeholder="Name"
@@ -16,7 +16,7 @@ const RoutineForm = ({ routine, setRoutine, handleSubmit }) => {
                 }}
             />
             <div>
-                <span>Public Routine?</span>
+                <label>Public Routine?</label>
                 <input
                     type="checkbox"
                     value={routine.isPublic}

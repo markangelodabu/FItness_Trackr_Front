@@ -40,10 +40,12 @@ function App() {
   useEffect(() => {
     handleRoutines();
     handleActivities();
-  }, []);
+  }, []); 
   
   useEffect(() => {
-    handleUser();
+    if (token) {
+      handleUser();
+    } 
   }, [token]);
 
   useEffect(() => {
@@ -55,27 +57,30 @@ function App() {
   return (
     <div className="App">
       <nav className="App-link">
+        {token && <h2>Welcome, {user.username}</h2>}
         {<Link to="/">Home</Link>}
         {<Link to="/routines">Routines</Link>}
-        {<Link to="/account/routines">My Routines</Link>}
+        {<Link to="/myroutines">My Routines</Link>}
         {<Link to="/activities">Activities</Link>}
         {!token && <Link to="/login">Login</Link>}
         {!token && <Link to="/register">Register</Link>}
-        {token && <h2>Welcome, {user.username}</h2>}
-        {token && <button onClick={()=>{
+        {token && 
+        <button 
+        onClick={()=>{
           setToken("");
-        }}>Logout</button>}
+          localStorage.removeItem("token");
+        }}
+        >
+          Logout
+        </button>}
       </nav>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login setToken={setToken} />} />
-        <Route
-          path="/register"
-          element={<Register token={token} setToken={setToken} />}
-        />
+        <Route path="/register" element={<Register token={token} setToken={setToken} />}/>
         <Route path="/routines" element={<Routines token = {token} user={user} routines={routines} setRoutines={setRoutines}/>} />
         <Route path="/activities" element={<Activities activities={activities} setActivities={setActivities}/>} />
-        <Route path="/account/routines" element={<MyRoutines token={token} routines={routines} setRoutines={setRoutines}/>} />
+        <Route path="/myroutines" element={<MyRoutines user={user} token={token} routines={routines} setRoutines={setRoutines}/>} />
       </Routes>
     </div>
   );
