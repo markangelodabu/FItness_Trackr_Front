@@ -7,7 +7,6 @@ import {
   Login,
   RoutineView,
   Activities,
-  Header,
   Routines,
   MyRoutines,
 } from "./components";
@@ -41,16 +40,12 @@ function App() {
     const fetchedActivities = await fetchActivities();
     setActivities(fetchedActivities);
   };
-  const handleLogout = () => {
-    setUser({});
-    setToken("");
-    localStorage.removeItem("token");
-  };
+
   useEffect(() => {
     handleRoutines();
     handleActivities();
-  }, []); 
-  
+  }, []);
+
   useEffect(() => {
     if (token) {
       handleUser();
@@ -73,24 +68,52 @@ function App() {
         {<Link to="/activities">Activities</Link>}
         {!token && <Link to="/login">Login</Link>}
         {!token && <Link to="/register">Register</Link>}
-        {token && 
-        <button 
-        onClick={()=>{
-          setToken("");
-          localStorage.removeItem("token");
-        }}
-        >
-          Logout
-        </button>}
+        {token && (
+          <button
+            onClick={() => {
+              setToken("");
+              localStorage.removeItem("token");
+            }}
+          >
+            Logout
+          </button>
+        )}
       </nav>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login setToken={setToken} />} />
-        <Route path="/register" element={<Register token={token} setToken={setToken} />}/>
-        <Route path="/routines" element={<Routines token = {token} user={user} routines={routines} setRoutines={setRoutines}/>} />
-        <Route path="/activities" element={<Activities activities={activities} setActivities={setActivities}/>} />
-        <Route path="/myroutines" element={<MyRoutines user={user} token={token} routines={routines} setRoutines={setRoutines}/>} />
-
+        <Route
+          path="/register"
+          element={<Register token={token} setToken={setToken} />}
+        />
+        <Route
+          path="/routines"
+          element={
+            <Routines
+              token={token}
+              user={user}
+              routines={routines}
+              setRoutines={setRoutines}
+            />
+          }
+        />
+        <Route
+          path="/activities"
+          element={
+            <Activities activities={activities} setActivities={setActivities} />
+          }
+        />
+        <Route
+          path="/myroutines"
+          element={
+            <MyRoutines
+              user={user}
+              token={token}
+              routines={routines}
+              setRoutines={setRoutines}
+            />
+          }
+        />
       </Routes>
     </div>
   );
