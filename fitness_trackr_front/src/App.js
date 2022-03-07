@@ -1,42 +1,49 @@
 import "./App.css";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Home, Register, Login, Routines, Activities, MyRoutines } from "./components";
-import { Routes, Route, Link } from "react-router-dom";
-import { getUser, fetchRoutines, fetchActivities } from "./api";
+import {
+  Home,
+  Register,
+  Login,
+  RoutineView,
+  Activities,
+  Header,
+} from "./components";
+import { Routes, Route } from "react-router-dom";
+import { fetchActivities, fetchRoutines } from "./api";
+const BASE_URL = "https://shrouded-forest-35352.herokuapp.com/api";
 
 function App() {
   const [token, setToken] = useState("");
   const [user, setUser] = useState({});
-  const [routines, setRoutines] = useState([]);
   const [activities, setActivities] = useState([]);
+  const [routines, setRoutines] = useState([]);
 
   const handleUser = async (token) => {
-    if (token) {
-      const userObject = await getUser(token);
+    try {
+      const { data: userObject } = await axios.get(`${BASE_URL}/users/me`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setUser(userObject);
-    } else {
-      setUser({});
+    } catch (error) {
+      console.error(error);
     }
   };
-
   const handleRoutines = async () => {
-    try {
-      const fetchedRoutines = await fetchRoutines();
-      setRoutines(fetchedRoutines);
-    } catch (error) {
-      console.log(error);
-    }
+    const fetchedRoutines = await fetchRoutines();
+    setRoutines(fetchedRoutines);
   };
-
   const handleActivities = async () => {
-    try {
-      const fetchedActivities = await fetchActivities();
-      setActivities(fetchedActivities);
-    } catch (error) {
-      console.log(error);
-    }
+    const fetchedActivities = await fetchActivities();
+    setActivities(fetchedActivities);
   };
-
+  const handleLogout = () => {
+    setUser({});
+    setToken("");
+    localStorage.removeItem("token");
+  };
   useEffect(() => {
     handleRoutines();
     handleActivities();
@@ -45,7 +52,7 @@ function App() {
   useEffect(() => {
     if (token) {
       handleUser();
-    } 
+    }
   }, [token]);
 
   useEffect(() => {
@@ -81,6 +88,7 @@ function App() {
         <Route path="/routines" element={<Routines token = {token} user={user} routines={routines} setRoutines={setRoutines}/>} />
         <Route path="/activities" element={<Activities activities={activities} setActivities={setActivities}/>} />
         <Route path="/myroutines" element={<MyRoutines user={user} token={token} routines={routines} setRoutines={setRoutines}/>} />
+
       </Routes>
     </div>
   );

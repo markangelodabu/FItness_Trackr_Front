@@ -1,4 +1,7 @@
 import "./Activities.css";
+import React from "react";
+import { useEffect, useState } from "react";
+import { fetchActivities } from "../api";
 
 
 const Activities = ({activities}) => {
