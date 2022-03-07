@@ -5,14 +5,13 @@ import {
   Home,
   Register,
   Login,
-  RoutineView,
+  // RoutineView,
   Activities,
   Routines,
   MyRoutines,
 } from "./components";
 import { Routes, Route, Link } from "react-router-dom";
 import { fetchActivities, fetchRoutines, getUser } from "./api";
-const BASE_URL = "https://shrouded-forest-35352.herokuapp.com/api";
 
 function App() {
   const [token, setToken] = useState("");
@@ -62,6 +61,7 @@ function App() {
         {<Link to="/routines">Routines</Link>}
         {<Link to="/myroutines">My Routines</Link>}
         {<Link to="/activities">Activities</Link>}
+        {<Link to="/myactivities">My Activities</Link>}
         {!token && <Link to="/login">Login</Link>}
         {!token && <Link to="/register">Register</Link>}
         {token && (
@@ -107,6 +107,17 @@ function App() {
               token={token}
               routines={routines}
               setRoutines={setRoutines}
+            />
+          }
+        />
+        <Route
+          path="/myactivities"
+          element={
+            <MyActivities
+              user={user}
+              token={token}
+              activities={activities}
+              setActivities={setActivities}
             />
           }
         />
