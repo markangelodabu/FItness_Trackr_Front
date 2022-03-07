@@ -8,11 +8,11 @@ const AddActivity = ({ token, setActivities, activities}) => {
         description: "",
     };
     const [activity, setActivity] = useState(blankActivity);
-
+    console.log(activity);
     const handleAdd = async (event) => {
         try {
             event.preventDefault();
-            const newActivity = await addActivity(token, activity);
+            const newActivity = await addActivity(activity, token);
             setActivities([...activities, newActivity])
             setActivity(blankActivity);
         }   catch (error) {

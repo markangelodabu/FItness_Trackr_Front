@@ -1,6 +1,6 @@
 import { useState } from "react";
 import RoutineForm from "./RoutineForm";
-import { addRoutine } from "../api";
+import { addRoutine, fetchRoutines } from "../api";
 
 const AddRoutine = ({ token, setRoutines, routines}) => {
     const blankRoutine = {
@@ -13,8 +13,9 @@ const AddRoutine = ({ token, setRoutines, routines}) => {
     const handleAdd = async (event) => {
         try {
             event.preventDefault();
-            const newRoutine = await addRoutine(token, routine);
-            setRoutines([...routines, newRoutine])
+            await addRoutine(routine, token);
+            const updatedRoutines = await fetchRoutines();
+            setRoutines(updatedRoutines);
             setRoutine(blankRoutine);
         }   catch (error) {
             console.error(error);
