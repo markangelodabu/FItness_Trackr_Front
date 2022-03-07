@@ -35,11 +35,13 @@ export const login = async (username, password) => {
 
 export const getUser = async (token) => {
   try {
-    const response = await axios.get(`${BASE_URL}/users/me`, {
-      token,
+    const {data} = await axios.get(`${BASE_URL}/users/me`, {
+      headers: {
+        Authorization:`Bearer ${token}`
+      }
     });
-    console.log(response);
-    const result = response;
+    console.log(data);
+    const result = data;
     return result;
   } catch (error) {
     console.error('error at getUser', error);

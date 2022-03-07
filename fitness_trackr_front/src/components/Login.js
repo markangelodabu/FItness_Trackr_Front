@@ -15,7 +15,7 @@ const Login = ({ token, setToken }) => {
     try {    
       event.preventDefault();
       const [newToken, message] = await login(username, password);
-      console.log(newToken);
+      console.log(token);
       localStorage.setItem("token", newToken);
       setToken(newToken);
       setMessage(message);
