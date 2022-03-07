@@ -11,7 +11,7 @@ import {
   MyRoutines,
 } from "./components";
 import { Routes, Route, Link } from "react-router-dom";
-import { fetchActivities, fetchRoutines } from "./api";
+import { fetchActivities, fetchRoutines, getUser } from "./api";
 const BASE_URL = "https://shrouded-forest-35352.herokuapp.com/api";
 
 function App() {
@@ -22,12 +22,8 @@ function App() {
 
   const handleUser = async (token) => {
     try {
-      const { data: userObject } = await axios.get(`${BASE_URL}/users/me`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setUser(userObject);
+      const fetchedUsers = await getUser(token);
+      setUser(fetchedUsers);
     } catch (error) {
       console.error(error);
     }
@@ -48,7 +44,7 @@ function App() {
 
   useEffect(() => {
     if (token) {
-      handleUser();
+      handleUser(token);
     }
   }, [token]);
 
@@ -81,7 +77,7 @@ function App() {
       </nav>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login setToken={setToken} />} />
+        <Route path="/login" element={<Login token={token} setToken={setToken} />} />
         <Route
           path="/register"
           element={<Register token={token} setToken={setToken} />}
