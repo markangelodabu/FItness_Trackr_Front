@@ -2,7 +2,7 @@ import "./Register.css";
 import React from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { register } from "../api";
+import { login, register } from "../api";
 
 const Register = ({ token, setToken }) => {
   const [username, setUsername] = useState("");
@@ -14,8 +14,8 @@ const Register = ({ token, setToken }) => {
   const handleSubmit = async (event) => {
     try{
       event.preventDefault();
-      const [newToken, message] = await register(username, password);
-      console.log(token);
+      await register(username, password);
+      const [newToken, message] = await login(username, password);
       setToken(newToken);
       setMessage(message);
       navigate("/");
