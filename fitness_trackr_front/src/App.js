@@ -8,8 +8,10 @@ import {
   RoutineView,
   Activities,
   Header,
+  Routines,
+  MyRoutines,
 } from "./components";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import { fetchActivities, fetchRoutines } from "./api";
 const BASE_URL = "https://shrouded-forest-35352.herokuapp.com/api";
 
