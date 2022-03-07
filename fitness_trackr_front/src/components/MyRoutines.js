@@ -1,30 +1,9 @@
-import React from "react";
-import { useState } from "react";
-import { RoutineForm } from "./";
-import { addRoutine } from "../api";
+import AddRoutine from "./AddRoutine";
 
 const MyRoutines = ({ token, setRoutines, routines}) => {
-    const blankRoutine = {
-        name: "",
-        goal: "",
-        isPublic: false,
-    };
-    const [routine, setRoutine] = useState(blankRoutine);
-
-    const handleAdd = async (element) => {
-        try {
-            element.preventDefault();
-            const newRoutine = await addRoutine(routine, token);
-            setRoutines([...routines, newRoutine])
-            setRoutine(blankRoutine);
-        }   catch (error) {
-            console.error(error);
-        }
-    };
     return (
         <>
-            <h2>Add Routine</h2>
-            <RoutineForm handleSubmit={handleAdd} routine={routine} setRoutine={setRoutine} />
+            <AddRoutine token={token} routine={routines} setRoutine={setRoutines} />
         </>
     );
 };

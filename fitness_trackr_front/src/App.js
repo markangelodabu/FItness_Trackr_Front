@@ -47,7 +47,8 @@ function App() {
   useEffect(() => {
     handleRoutines();
     handleActivities();
-  }, []);
+  }, []); 
+  
   useEffect(() => {
     if (token) {
       handleUser();
@@ -62,28 +63,32 @@ function App() {
 
   return (
     <div className="App">
-      <Header user={user} token={token} handleLogout={handleLogout} />
+      <nav className="App-link">
+        {token && <h2>Welcome, {user.username}</h2>}
+        {<Link to="/">Home</Link>}
+        {<Link to="/routines">Routines</Link>}
+        {<Link to="/myroutines">My Routines</Link>}
+        {<Link to="/activities">Activities</Link>}
+        {!token && <Link to="/login">Login</Link>}
+        {!token && <Link to="/register">Register</Link>}
+        {token && 
+        <button 
+        onClick={()=>{
+          setToken("");
+          localStorage.removeItem("token");
+        }}
+        >
+          Logout
+        </button>}
+      </nav>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login setToken={setToken} />} />
-        <Route
-          path="/register"
-          element={<Register token={token} setToken={setToken} />} />
-        <Route
-          path="/activities"
-          element={<Activities activities={activities} />}
-        />
-        <Route
-          path="/routines/:routineId"
-          element={
-            <RoutineView
-              routines={routines}
-              activities={activities}
-              token={token}
-              handleRoutines={handleRoutines}
-            />
-          }
-        />
+        <Route path="/register" element={<Register token={token} setToken={setToken} />}/>
+        <Route path="/routines" element={<Routines token = {token} user={user} routines={routines} setRoutines={setRoutines}/>} />
+        <Route path="/activities" element={<Activities activities={activities} setActivities={setActivities}/>} />
+        <Route path="/myroutines" element={<MyRoutines user={user} token={token} routines={routines} setRoutines={setRoutines}/>} />
+
       </Routes>
     </div>
   );
