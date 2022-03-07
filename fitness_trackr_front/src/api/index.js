@@ -68,16 +68,16 @@ export const fetchActivities = async () => {
   }
 };
 
-export const addActivity = async (name, description) => {
+export const addActivity = async (activityToAdd, token) => {
   try {
-    const {data} = await axios.post(`${BASE_URL}/activities`, {
-      name,
-      description,
+    const {data} = await axios.post(`${BASE_URL}/activities`, activityToAdd, {
+      headers: {
+        Authorization:`Bearer ${token}`
+      }
     });
-    const activity = data
-    return activity;
-  } catch (error) {
-    console.error("Error at addActivity", error);
+    return data;
+  } catch ({response}) {
+    console.error("Error at addActivity", response);
   }
 };
 
@@ -120,13 +120,12 @@ export const addRoutine = async (routineToAdd, token) => {
   try {
     const {data} = await axios.post(`${BASE_URL}/routines`, routineToAdd, {
       headers: {
-        Authorization:`Bearer ${token}`
+        Authorization: `Bearer ${token}`
       }
     });
-    const routine =  data
-    return routine;
-  } catch (error) {
-    console.error("Error at addRoutine", error);
+    return data;
+  } catch ({response}) {
+    console.error("Error at addRoutine", response);
   }
 };
 

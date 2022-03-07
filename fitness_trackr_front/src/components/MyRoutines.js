@@ -3,7 +3,7 @@ import AddRoutine from "./AddRoutine";
 const MyRoutines = ({ token, setRoutines, routines}) => {
     return (
         <>
-            <AddRoutine token={token} routine={routines} setRoutine={setRoutines} />
+            <AddRoutine token={token} routine={routines} setRoutines={setRoutines} />
         </>
     );
 };

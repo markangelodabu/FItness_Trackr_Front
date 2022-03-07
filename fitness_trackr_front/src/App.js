@@ -1,5 +1,4 @@
 import "./App.css";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import {
   Home,
@@ -8,9 +7,10 @@ import {
   // RoutineView,
   Activities,
   Routines,
+  MyActivities,
   MyRoutines,
 } from "./components";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import { fetchActivities, fetchRoutines, getUser } from "./api";
 
 function App() {
@@ -18,6 +18,8 @@ function App() {
   const [user, setUser] = useState({});
   const [activities, setActivities] = useState([]);
   const [routines, setRoutines] = useState([]);
+  const navigate = useNavigate();
+
 
   const handleUser = async (token) => {
     try {
@@ -56,17 +58,18 @@ function App() {
   return (
     <div className="App">
       <nav className="App-link">
-        {token && <h2>Welcome, {user.username}</h2>}
         {<Link to="/">Home</Link>}
         {<Link to="/routines">Routines</Link>}
-        {<Link to="/myroutines">My Routines</Link>}
+        {token && <Link to="/myroutines">My Routines</Link>}
         {<Link to="/activities">Activities</Link>}
-        {<Link to="/myactivities">My Activities</Link>}
+        {token && <Link to="/myactivities">My Activities</Link>}
         {!token && <Link to="/login">Login</Link>}
         {!token && <Link to="/register">Register</Link>}
+        {token && <h2>Welcome, {user.username}</h2>}
         {token && (
           <button
             onClick={() => {
+              navigate("/");
               setToken("");
               localStorage.removeItem("token");
             }}
@@ -77,7 +80,10 @@ function App() {
       </nav>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login token={token} setToken={setToken} />} />
+        <Route
+          path="/login"
+          element={<Login token={token} setToken={setToken} />}
+        />
         <Route
           path="/register"
           element={<Register token={token} setToken={setToken} />}

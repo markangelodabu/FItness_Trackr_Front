@@ -6,4 +6,5 @@ export { default as Activities } from "./Activities";
 export { default as RoutineForm } from "./RoutineForm";
 export { default as MyRoutines } from "./MyRoutines";
 export { default as RoutineView } from "./RoutineView";
-export { default as AddActivityToRoutineForm } from "./AddActivityToRoutineForm"
+export { default as AddActivityToRoutineForm } from "./AddActivityToRoutineForm";
+export { default as MyActivities } from "./MyActivities";
