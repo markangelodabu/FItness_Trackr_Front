@@ -1,36 +1,31 @@
-import React from "react";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { AddActivityToRoutineForm } from "./";
+import Routine from "./Routine";
+import AddActivityToRoutineForm from "./AddActivityToRoutineForm";
 
-const RoutineView = ({ routines, activities, token, handleRoutines }) => {
-  const { routineId } = useParams();
-  const [routine, setRoutine] = useState(null);
+const RoutineView = ({routines, activities, token, handleRoutines}) => {
+	const {routineId} = useParams();
+	const [routine, setRoutine] = useState(null);
 
-  useEffect(
-    (routineId) => {
-      const routineToDisplay = routines.find((element) => {
-        return element.id === routineId * 1;
-      });
-      setRoutine(routineToDisplay);
-    },
-    [routines]
-  );
+	useEffect(() => {
+		const routineToDisplay = routines.find((elem) => {
+			return elem.id === routineId * 1;
+		})
+		setRoutine(routineToDisplay);
+	}, [routines]);
 
-  if (!routine) {
-    return <div>Loading?</div>;
-  }
+	if(!routine) {
+		return <div>
+			Loading...
+		</div>
+	}
 
-  return (
-    <>
-      <AddActivityToRoutineForm
-        routineId={routineId}
-        activities={activities}
-        token={token}
-        handleRoutines={handleRoutines}
-      />
-    </>
-  );
-};
+	return(
+		<>
+			<Routine routine={routine} />
+			<AddActivityToRoutineForm routineId={routineId} activities={activities} token={token} handleRoutines={handleRoutines}/>
+		</>
+	)
+}
 
 export default RoutineView;

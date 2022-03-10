@@ -1,8 +1,6 @@
 import "./Routines.css";
-import { useNavigate } from "react-router-dom";
 
 const Routines = ({user, routines, setRoutines}) => {
-  const navigate = useNavigate();
 
   return (
     <div>
@@ -14,7 +12,6 @@ const Routines = ({user, routines, setRoutines}) => {
             <div>Name : {routine.name}</div>
             <div>Goal: {routine.goal}</div>
             <div>Creator: {routine.creatorName} </div>
-            {(user?.id === routine.creatorId) && <button onClick={() => navigate(`/routines/${routine.id}`)}> Edit </button>}
             <h2>Activities</h2>
             {routine.activities.map((activity) => {
                 return (
