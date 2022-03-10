@@ -48,9 +48,9 @@ export const getUser = async (token) => {
   }
 };
 
-export const publicRoutinesByUser = async () => {
+export const publicRoutinesByUser = async (username) => {
   try {
-    const {data} = await axios.get(`${BASE_URL}/users/:username/routines`);
+    const {data} = await axios.get(`${BASE_URL}/users/${username}/routines`);
     const routines = data;
     return routines;
   } catch (error) {
@@ -81,9 +81,9 @@ export const addActivity = async (activityToAdd, token) => {
   }
 };
 
-export const updateActivity = async (name, description) => {
+export const updateActivity = async (name, description, activityId) => {
   try {
-    const {data} = await axios.patch(`${BASE_URL}/activities/:activityId`, {
+    const {data} = await axios.patch(`${BASE_URL}/activities/${activityId}`, {
       name,
       description,
     });
@@ -129,9 +129,9 @@ export const addRoutine = async (routineToAdd, token) => {
   }
 };
 
-export const updateRoutine = async (name, goal, isPublic) => {
+export const updateRoutine = async (name, goal, isPublic, routineId) => {
   try {
-    const {data} = await axios.patch(`${BASE_URL}/routines/:routineId`, {
+    const {data} = await axios.patch(`${BASE_URL}/routines/${routineId}`, {
       name,
       goal,
       isPublic,
@@ -143,13 +143,16 @@ export const updateRoutine = async (name, goal, isPublic) => {
   }
 };
 
-export const deleteRoutine = async () => {
+export const deleteRoutine = async (token, routineId) => {
   try {
-    const {data} = await axios.delete(`${BASE_URL}/routines/:routineId`);
-    const routine = data
-    return routine;
+    const {data} = await axios.delete(`${BASE_URL}/routines/${routineId}`, {
+      headers: {
+        Authorization:`Bearer ${token}`
+      }
+    });
+    return data;
   } catch (error) {
-    console.error("Error at updataRoutine", error);
+    console.error("Error at deleteRoutine", error);
   }
 };
 
@@ -170,10 +173,10 @@ export const addActivityToRoutine = async (activityId, count, duration) => {
   }
 };
 
-export const updateRoutineActivity = async (count, duration) => {
+export const updateRoutineActivity = async (count, duration,routineActivityId) => {
   try {
     const {data} = await axios.patch(
-      `${BASE_URL}/routine_activities/:routineActivityId`,
+      `${BASE_URL}/routine_activities/${routineActivityId}`,
       {
         count,
         duration,
@@ -186,11 +189,14 @@ export const updateRoutineActivity = async (count, duration) => {
   }
 };
 
-export const deleteRoutineActivity = async () => {
+export const deleteRoutineActivity = async (token, routineActivityId) => {
   try {
     const {data} = await axios.delete(
-      `${BASE_URL}/routine_activities/:routineActivityId`
-    );
+      `${BASE_URL}/routine_activities/${routineActivityId}`, {
+        headers: {
+          Authorization:`Bearer ${token}`
+        }
+      });
     const routine_activity = data 
     return routine_activity;
   } catch (error) {
