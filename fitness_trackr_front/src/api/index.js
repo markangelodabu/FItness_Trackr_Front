@@ -40,9 +40,7 @@ export const getUser = async (token) => {
         Authorization:`Bearer ${token}`
       }
     });
-    console.log(data);
-    const result = data;
-    return result;
+    return data;
   } catch (error) {
     console.error('error at getUser', error);
   }
@@ -51,8 +49,7 @@ export const getUser = async (token) => {
 export const publicRoutinesByUser = async (username) => {
   try {
     const {data} = await axios.get(`${BASE_URL}/users/${username}/routines`);
-    const routines = data;
-    return routines;
+    return data;
   } catch (error) {
     console.error("Error at publicRoutineByUser", error);
   }
@@ -61,8 +58,7 @@ export const publicRoutinesByUser = async (username) => {
 export const fetchActivities = async () => {
   try {
     const {data} = await axios.get(`${BASE_URL}/activities`);
-    const activities = data
-    return activities;
+    return data;
   } catch (error) {
     console.error("Error at fetchActivities", error);
   }
@@ -87,8 +83,7 @@ export const updateActivity = async (name, description, activityId) => {
       name,
       description,
     });
-    const activity = data
-    return activity;
+    return data;
   } catch (error) {
     console.error("Error at updateActivity", error);
   }
@@ -99,8 +94,7 @@ export const publicRoutinesByActivity = async () => {
     const {data} = await axios.get(
       `${BASE_URL}/activities/:activityId/routines`
     );
-    const routines = data
-    return routines;
+    return data;
   } catch (error) {
     console.error("Error at publicRoutinesByActivity", error);
   }
@@ -109,8 +103,7 @@ export const publicRoutinesByActivity = async () => {
 export const fetchRoutines = async () => {
   try {
     const {data} = await axios.get(`${BASE_URL}/routines`);
-    const routines = data
-    return routines;
+    return data;
   } catch (error) {
     console.error("Error at fetchRoutines", error);
   }
@@ -136,8 +129,7 @@ export const updateRoutine = async (name, goal, isPublic, routineId) => {
       goal,
       isPublic,
     });
-    const routine = data;
-    return routine;
+    return data;
   } catch (error) {
     console.error("Error at updateRoutine", error);
   }
@@ -184,8 +176,7 @@ export const updateRoutineActivity = async (count, duration,routineActivityId) =
         duration,
       }
     );
-    const routine_activity = data
-    return routine_activity;
+    return data;
   } catch (error) {
     console.error("Error at updateRoutineActivity", error);
   }
@@ -199,8 +190,7 @@ export const deleteRoutineActivity = async (token, routineActivityId) => {
           Authorization:`Bearer ${token}`
         }
       });
-    const routine_activity = data 
-    return routine_activity;
+    return data;
   } catch (error) {
     console.error("Error at deleteRoutineActivity", error);
   }
