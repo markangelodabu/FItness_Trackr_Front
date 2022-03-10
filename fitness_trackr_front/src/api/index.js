@@ -146,7 +146,7 @@ export const deleteRoutine = async (token, routineId) => {
   }
 };
 
-export const addActivityToRoutine = async (activityId, count, duration, routineId, token) => {
+export const addActivityToRoutine = async (routineId, activityId, count, duration, token) => {
   try {
     const {data} = await axios.post(
       `${BASE_URL}/routines/${routineId}/activities`, 
