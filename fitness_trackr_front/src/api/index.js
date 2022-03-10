@@ -8,7 +8,6 @@ export const register = async (username, password) => {
       username,
       password,
     });
-    console.log(data); 
     const {token, message} = data;
       return [token, message];
      
@@ -24,7 +23,6 @@ export const login = async (username, password) => {
       username,
       password,
     });
-    console.log(data);
     const {token, message} = data;
       return [token, message];
   } catch (error) {
