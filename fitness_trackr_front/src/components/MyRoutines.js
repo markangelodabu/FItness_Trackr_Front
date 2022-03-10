@@ -1,7 +1,9 @@
 import AddRoutine from "./AddRoutine";
 import { deleteRoutine } from "../api";
+import { useNavigate } from "react-router-dom";
 
 const MyRoutines = ({ user, token, setRoutines, routines}) => {
+    const navigate = useNavigate();
 
     const handleDelete = async (id) => {
         try {
@@ -25,6 +27,7 @@ const MyRoutines = ({ user, token, setRoutines, routines}) => {
                         <div>Name : {routine.name}</div>
                         <div>Goal: {routine.goal}</div>
                         <div>Creator: {routine.creatorName} </div>
+                        {(user?.id === routine.creatorId) && <button onClick={() => navigate(`/routines/${routine.id}`)}> Edit </button>}
                         {(user?.id === routine.creatorId) && <button onClick={() => handleDelete(routine.id)}> Delete </button>}
                         <h2>Activities</h2>
                         {routine.activities.map((activity) => {

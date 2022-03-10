@@ -9,6 +9,7 @@ import {
   Routines,
   MyActivities,
   MyRoutines,
+  RoutineView,
 } from "./components";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import { fetchActivities, fetchRoutines, getUser } from "./api";
@@ -127,6 +128,7 @@ function App() {
             />
           }
         />
+        <Route path="/routines/:routineId" element = {<RoutineView routines={routines} activities={activities} token={token} handleRoutines={handleRoutines} />}/>
       </Routes>
     </div>
   );
